@@ -142,7 +142,7 @@ jobs:
             npm audit --audit-level=critical
   scan-backend:
     docker:
-      - image: cimg/base
+      - image: cimg/base:stable
     steps:
       - checkout
       - restore_cache:
