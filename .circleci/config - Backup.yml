@@ -38,7 +38,7 @@ commands:
           type: string
           default: ${CIRCLE_WORKFLOW_ID:0:7}
 
-
+           
     steps:
       - run:
           name: Revert migrations
@@ -229,7 +229,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - project/.circleci/ansible/inventory.txt
+            - project 3/.circleci/ansible/inventory.txt
       # Here's where you will add some code to rollback on failure 
 
       
@@ -275,7 +275,7 @@ jobs:
       - run:
           name: Send migration results to dvdb
           command: |
-            if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
+            if grep -q "has been executed successfully." ~/project 3/backend/migrations_dump.txt
             then
              curl --insecure https://kvdb.io/9GE4jRtKznmVKRfvdBABBe/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi
