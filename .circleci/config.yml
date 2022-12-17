@@ -245,7 +245,7 @@ jobs:
       # Checkout code from git
       - checkout
       - install_awscli
-      - install_node.js
+      - install_nodejs
       - restore_cache:
           keys: [frontend-deps]
       - run:
