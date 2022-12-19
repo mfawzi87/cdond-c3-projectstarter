@@ -32,7 +32,9 @@ Resources:
       KeyName: udacity
       # If this ami id is not available for you, you can find another (https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html)
       # Ubuntu 18 or higher works fine
-      ImageId: ami-061dbd1209944525c 
+      ImageId: ami-0574da719dca65348
       Tags:
         - Key: Name
           Value: !Sub backend-${ID}
+        - key: project
+          value: Udapeople  
