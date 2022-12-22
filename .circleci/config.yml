@@ -203,7 +203,7 @@ jobs:
           name: Add Back-End IP to Ansible Inventory
           command: |
             aws ec2 describe-instances \
-            --query 'Reservations[].Instances[].PublicIpAddress' \
+            --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --filters Name=tag:aws:cloudformation:stack-name,Values=udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} \
             --output text >> .circleci/ansible/inventory.txt
             cat .circleci/ansible/inventory.txt
@@ -223,7 +223,7 @@ jobs:
       - install_awscli
       - install_ansible
       - add_ssh_keys:
-          fingerprints: ["a9:34:2a:d8:11:69:1c:e4:80:b5:d7:4b:e0:84:49:7f"]
+          fingerprints: ["6a:26:0d:3e:92:ad:4b:a4:b8:c3:19:df:a2:01:1b:71"]
       - attach_workspace:
           at: ~/
       - run:
