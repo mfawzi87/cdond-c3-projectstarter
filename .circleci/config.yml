@@ -212,7 +212,7 @@ jobs:
           paths:
             - inventory.txt     
 
-      - destroy_environment
+      # - destroy_environment
      
 
   configure-infrastructure:
