@@ -32,20 +32,20 @@ commands:
             sudo npm install --global n
             sudo n 13.8.0
   
-  destroy_environment:
-    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
-    parameters:
-      workflow_ID:
-        type: string
-        default: ${CIRCLE_WORKFLOW_ID:0:7}
-    steps:
-      - run:
-          name: Destroy environments
-          when: on_fail
-          command: |
-            aws cloudformation delete-stack --stack-name udapeople-backend-<< parameters.workflow_ID >>
-            aws s3 rm s3://udapeople-<<parameters.workflow_ID>> --recursive
-            aws cloudformation delete-stack --stack-name udapeople-frontend-<< parameters.workflow_ID >>
+  # destroy_environment:
+  #   description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
+  #   parameters:
+  #     workflow_ID:
+  #       type: string
+  #       default: ${CIRCLE_WORKFLOW_ID:0:7}
+  #   steps:
+  #     - run:
+  #         name: Destroy environments
+  #         when: on_fail
+  #         command: |
+  #           aws cloudformation delete-stack --stack-name udapeople-backend-<< parameters.workflow_ID >>
+  #           aws s3 rm s3://udapeople-<<parameters.workflow_ID>> --recursive
+  #           aws cloudformation delete-stack --stack-name udapeople-frontend-<< parameters.workflow_ID >>
 
   revert-migrations:
     description: Revert the last migration if successfully run in the current workflow.
