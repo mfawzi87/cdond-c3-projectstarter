@@ -362,10 +362,12 @@ jobs:
 cleanup:
     docker:
       # Docker image here
-      - image: circleci/node:13.8.0
+      - image: cimg/base:stable
     steps:
       # Checkout code from git
       - checkout
+      - install_awscli
+      - install_nodejs
       - run:
           name: Get old stack workflow id
           command: |
@@ -375,9 +377,17 @@ cleanup:
       - run:
           name: Remove old stacks and files
           command: |
+            export STACKS=($(aws cloudformation list-stacks \
+                --query "StackSummaries[*].StackName" \
+                --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
+            echo Stack names: "${STACKS[@]}"
+            export OldWorkflowID=$(curl --insecure https://kvdb.io/${KVDB_BUCKET}/old_workflow_id)
+            echo Old Workflow ID: $OldWorkflowID 
             if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
             then
-              # your code here
+              aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
+              aws cloudformation delete-stack --stack-name "udapeople-backend-${OldWorkflowID}"
+              aws cloudformation delete-stack --stack-name "udapeople-frontend-${OldWorkflowID}"
             fi
             
 
